@@ -1,1 +1,22 @@
 Edit on your own
+
+How to use :
+
+. adb.sh (it will push automatic mirage slim rom)
+
+. cd.sh APPName (it will move packages/apps/APPName)
+
+. fr.sh (it will move frameworks/base)
+
+. go.sh (it will lunch make.sh with no syncing)
+
+. linaro.sh (build with mka in linaro toolchain)
+
+. make.sh $1 $2 $3 $4 (it will $1=Device_codename, $2=sync, $3=14 {threads}, $4=clean)
+
+. mmm.sh $1 (to use this, you need to 
+. build/envsetup.sh
+lunch $1 
+first, and then it'll compile packages/apps/$1)
+
+.out.sh (it will move out/target/product/maguro)
