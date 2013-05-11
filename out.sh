@@ -1,1 +1,1 @@
-cd out/target/product/maguro
+cd out/target/product/$1

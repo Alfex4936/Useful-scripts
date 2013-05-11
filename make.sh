@@ -5,7 +5,6 @@ reldir=`dirname $0`
 cd $reldir
 DIR=`pwd`
 DATE=$(date +%h-%d-%y)
-LOG_DIR=logs
 
 # Colorize and add text parameters
 red=$(tput setaf 1)             #  red
@@ -18,6 +17,7 @@ bldblu=${txtbld}$(tput setaf 4) #  blue
 bldcya=${txtbld}$(tput setaf 6) #  cyan
 txtrst=$(tput sgr0)             # Reset
 
+# Command Center
 DEVICE="$1"
 SYNC="$2"
 THREADS="$3"
@@ -25,7 +25,7 @@ CLEAN="$4"
 
 # Initial Startup
 res1=$(date +%s.%N)
-echo -e "${cya}This machine is gonna build - ${bldcya}slim ROM${txtrst}";
+echo -e "${cya}MIRAGE 롬 빌드를 시작 합니다.${txtrst}";
 
 # Unset CDPATH variable if set
 if [ "$CDPATH" != "" ]
@@ -33,13 +33,13 @@ then
   unset CDPATH
 fi
 
-# create log dir if not already present
-if test ! -d "$LOG_DIR"
-    echo "log directory doesn't exist, creating now"
-    then mkdir -p "$LOG_DIR"
+# Do ask 
+if [ "THREADS" = "clean" ]
+then
+  THREADS="12"
 fi
 
-# Sync the latest LIQUID Sources
+# Sync the latest MIRAGE Sources
 echo -e ""
 if [ "$SYNC" == "sync" ]
 then
@@ -54,7 +54,7 @@ then
         chmod a+x ~/bin/repo
       fi
    fi
-   echo -e "${bldblu}Syncing latest slim && MIRAGE sources ${txtrst}"
+   echo -e "${bldblu}최신 SLIM 롬 소스와 MIRAGE 소스 동기화 중... ${txtrst}"
    repo sync -f -j"$THREADS"
    echo -e ""
 fi
@@ -62,50 +62,41 @@ fi
 # Setup Environment (Cleaning)
 if [ "$CLEAN" == "clean" ]
 then
-   echo -e "${bldblu}Cleaning up out folder ${txtrst}"
+   echo -e "${bldblu}out 폴더 청소 중... ${txtrst}"
    make clobber;
 else
-  echo -e "${bldblu}Skipping out folder cleanup ${txtrst}"
+  echo -e "${bldblu}out 폴더 청소 건너뛰는 중... ${txtrst}"
 fi
 
 # Setup Environment
-echo -e "${bldblu}Setting up build environment ${txtrst}"
+echo -e "${bldblu}빌드환경 갖추는 중... ${txtrst}"
 . build/envsetup.sh
 
 if [ "$DEVICE" == "all" ]
 then
    echo -e ""
-   echo -e "${bldblu}Starting to build the epic ROM ${txtrst}"
-   echo -e "${bldblu}crespo ${txtrst}"
-   lunch "slim_crespo-userdebug"
-   make -j"$THREADS" otapackage
-   echo -e "${bldblu}grouper ${txtrst}"
-   lunch "slim_grouper-userdebug"
-   make -j"$THREADS" otapackage
+   echo -e "${bldblu}MIRAGE 롬 빌드를 시작 합니다. ${txtrst}"
    echo -e "${bldblu}Maguro ${txtrst}"
-   lunch "slim_maguro-userdebug"
-   make -j"$THREADS" otapackage
-   echo -e "${bldblu}mako ${txtrst}"
-   lunch "slim_mako-userdebug"
+   lunch "mirage_maguro-userdebug"
    make -j"$THREADS" otapackage
    echo -e "${bldblu}toro ${txtrst}"
-   lunch "slim_toro-userdebug"
+   lunch "mirage_toro-userdebug"
    make -j"$THREADS" otapackage
 else
    # Lunch Device
    echo -e ""
-   echo -e "${bldblu}Lunching your device ${txtrst}"
-   lunch "slim_$DEVICE-userdebug";
+   echo -e "${bldblu}"$DEVICE" 실행 중... ${txtrst}"
+   lunch "mirage_$DEVICE-userdebug";
 
    echo -e ""
-   echo -e "${bldblu}Starting to build the epic ROM ${txtrst}"
+   echo -e "${bldblu}MIRAGE 롬 빌드 시작 합니다. ${txtrst}"
 
    # Start Building like a bau5
-   mka bacon TARGET_TOOLS_PREFIX=`pwd`/android-toolchain-eabi/bin/arm-linux-androideabi- TARGET_PRODUCT=slim_maguro
+   mka bacon TARGET_TOOLS_PREFIX=`pwd`/android-toolchain-eabi/bin/arm-linux-androideabi- TARGET_PRODUCT=mirage_$DEVICE
    echo -e ""
 fi
 
 # Once building completed, bring in the Elapsed Time
 res2=$(date +%s.%N)
-echo "${bldgrn}Total time elapsed: ${txtrst}${grn}$(echo "($res2 - $res1) / 60"|bc ) minutes ($(echo "$res2 - $res1"|bc ) seconds) ${txtrst}"
+echo "${bldgrn}총 걸린 시간: ${txtrst}${grn}$(echo "($res2 - $res1) / 60"|bc ) 분 ($(echo "$res2 - $res1"|bc ) 초) ${txtrst}"
 
