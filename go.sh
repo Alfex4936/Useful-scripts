@@ -1,1 +1,1 @@
-. make.sh maguro no 12
+. make.sh maguro no 16
