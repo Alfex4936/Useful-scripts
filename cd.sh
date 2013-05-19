@@ -10,11 +10,11 @@ fi
 
 if [ "$APPS" == "settings" ]
     then
-        echo -e $CL_YLW"Moving to "packages/apps/Settings""$CL_RST
+        echo -e "Moving to "$CL_YLW""packages/apps/Settings""$CL_RST
         cd packages/apps/Settings
 fi
 
 if [ -e "Makefile" ]; then
-        echo -e $CL_CYN"Moving to "packages/apps/$1""$CL_RST
+        echo -e "Moving to "$CL_CYN""packages/apps/$1""$CL_RST
         cd packages/apps/$1
 fi
