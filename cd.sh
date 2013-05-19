@@ -18,3 +18,8 @@ if [ "$APPS" == "settings" ] || [ "$APPS" == "Setings" ] || [ "$APPS" == "Settin
         echo -e "Moving to "$CL_YLW""packages/apps/Settings""$CL_RST
         cd packages/apps/Settings
 fi
+
+if [ ! "$APPS" == "settings" ] || [ ! "$APPS" == "Setings" ] || [ ! "$APPS" == "Settings" ] || [ ! "$APPS" == "MMS" ] || [ ! "$APPS" == "mms" ]; then
+        echo -e "Moving to "$CL_CYN""packages/apps/$1""$CL_RST
+        cd packages/apps/$1
+fi
