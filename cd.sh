@@ -13,7 +13,7 @@ if [ "$APPS" == "mmms" ] || [ "$APPS" == "MMS" ]; then
         cd packages/apps/Mms
 fi
 
-if [ "$APPS" == "settings" ] || [ "$APPS" == "Setings" ]
+if [ "$APPS" == "settings" ] || [ "$APPS" == "Setings" ] || [ "$APPS" == "Settings" ]
     then
         echo -e "Moving to "$CL_YLW""packages/apps/Settings""$CL_RST
         cd packages/apps/Settings
