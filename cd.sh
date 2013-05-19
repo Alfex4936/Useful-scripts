@@ -8,13 +8,13 @@ if [ -z "$APPS" ]; then
         cd packages/apps
 fi
 
-if [ "$APPS" == "settings" ]
+if [ "$APPS" == "mmms" ] || [ "$APPS" == "MMS" ]; then
+        echo -e "Moving to "$CL_YLW""packages/apps/Mms""$CL_RST
+        cd packages/apps/Mms
+fi
+
+if [ "$APPS" == "settings" ] || [ "$APPS" == "Setings" ]
     then
         echo -e "Moving to "$CL_YLW""packages/apps/Settings""$CL_RST
         cd packages/apps/Settings
-fi
-
-if [ -e "Makefile" ]; then
-        echo -e "Moving to "$CL_CYN""packages/apps/$1""$CL_RST
-        cd packages/apps/$1
 fi
