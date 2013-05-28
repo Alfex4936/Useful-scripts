@@ -25,7 +25,7 @@ CLEAN="$4"
 
 # Initial Startup
 res1=$(date +%s.%N)
-echo -e "${cya}MIRAGE 롬 빌드를 시작 합니다.${txtrst}";
+echo -e "${cya}Start building MIRAGE ROM.${txtrst}";
 
 # Unset CDPATH variable if set
 if [ "$CDPATH" != "" ]
@@ -54,7 +54,7 @@ then
         chmod a+x ~/bin/repo
       fi
    fi
-   echo -e "${bldblu}최신 SLIM 롬 소스와 MIRAGE 소스 동기화 중... ${txtrst}"
+   echo -e "${bldblu}Syncing MIRAGE SOURCE... ${txtrst}"
    repo sync -f -j"$THREADS"
    echo -e ""
 fi
@@ -62,20 +62,20 @@ fi
 # Setup Environment (Cleaning)
 if [ "$CLEAN" == "clean" ]
 then
-   echo -e "${bldblu}out 폴더 청소 중... ${txtrst}"
+   echo -e "${bldblu}Cleaning out folder... ${txtrst}"
    make clobber;
 else
-  echo -e "${bldblu}out 폴더 청소 건너뛰는 중... ${txtrst}"
+  echo -e "${bldblu}Skipping cleaning out folder... ${txtrst}"
 fi
 
 # Setup Environment
-echo -e "${bldblu}빌드환경 갖추는 중... ${txtrst}"
+echo -e "${bldblu}Setting up build enviroments... ${txtrst}"
 . build/envsetup.sh
 
 if [ "$DEVICE" == "all" ]
 then
    echo -e ""
-   echo -e "${bldblu}MIRAGE 롬 빌드를 시작 합니다. ${txtrst}"
+   echo -e "${bldblu}Start building MIRAGE ROM. ${txtrst}"
    echo -e "${bldblu}Maguro ${txtrst}"
    lunch "mirage_maguro-userdebug"
    make -j"$THREADS" otapackage
@@ -85,18 +85,18 @@ then
 else
    # Lunch Device
    echo -e ""
-   echo -e "${bldblu}"$DEVICE" 실행 중... ${txtrst}"
+   echo -e "${bldblu}Launching "$DEVICE"... ${txtrst}"
    lunch "mirage_$DEVICE-userdebug";
 
    echo -e ""
-   echo -e "${bldblu}MIRAGE 롬 빌드 시작 합니다. ${txtrst}"
+   echo -e "${bldblu}Start building MIRAGE ROM. ${txtrst}"
 
    # Start Building like a bau5
-   mka bacon TARGET_TOOLS_PREFIX=`pwd`/android-toolchain-eabi/bin/arm-linux-androideabi- TARGET_PRODUCT=mirage_$DEVICE
+   mka bacon TARGET_PRODUCT=mirage_$DEVICE
    echo -e ""
 fi
 
 # Once building completed, bring in the Elapsed Time
 res2=$(date +%s.%N)
-echo "${bldgrn}총 걸린 시간: ${txtrst}${grn}$(echo "($res2 - $res1) / 60"|bc ) 분 ($(echo "$res2 - $res1"|bc ) 초) ${txtrst}"
+echo "${bldgrn}Total time elapsed: ${txtrst}${grn}$(echo "($res2 - $res1) / 60"|bc ) minutes ($(echo "$res2 - $res1"|bc ) seconds) ${txtrst}"
 
