@@ -39,6 +39,12 @@ then
   THREADS="12"
 fi
 
+# Some jerks
+if [ "$SYNC" == "repo" ]
+then
+  echo -e "${cya}Lul, Changing "repo" to "sync"!"
+fi
+
 # Sync the latest MIRAGE Sources
 echo -e ""
 if [ "$SYNC" == "sync" ]
@@ -76,12 +82,15 @@ if [ "$DEVICE" == "all" ]
 then
    echo -e ""
    echo -e "${bldblu}Start building MIRAGE ROM. ${txtrst}"
-   echo -e "${bldblu}Maguro ${txtrst}"
+   echo -e "${bldblu}maguro ${txtrst}"
    lunch "mirage_maguro-userdebug"
-   make -j"$THREADS" otapackage
+   mka bacon TARGET_PRODUCT=mirage_maguro
    echo -e "${bldblu}toro ${txtrst}"
    lunch "mirage_toro-userdebug"
-   make -j"$THREADS" otapackage
+   mka bacon TARGET_PRODUCT=mirage_toro
+   echo -e "${bldblu}crepo ${txtrst}"
+   lunch "mirage_crespo-userdebug"
+   mka bacon TARGET_PRODUCT=mirage_crespo
 else
    # Lunch Device
    echo -e ""
