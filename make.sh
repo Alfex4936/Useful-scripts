@@ -43,6 +43,7 @@ fi
 if [ "$SYNC" == "repo" ]
 then
   echo -e "${cya}Lul, Changing "repo" to "sync"!"
+  $SYNC="sync"
 fi
 
 # Sync the latest MIRAGE Sources
