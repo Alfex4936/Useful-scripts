@@ -1,33 +1,33 @@
 ####################################################################
 
-Copy the scripts what you want
+Copy scripts you want
 
 cd ~/ROM
 
 How to use :
 
-. adb.sh (it will push automatic mirage rom)
+. adb.sh (will push ROM automatically)
 curl https://raw.github.com/franco-c/Useful-scripts/franco/adb.sh
 
-. cd.sh APPName (it will move packages/apps/APPName)
+. cd.sh APPName (goto packages/apps/APPName)
 curl https://raw.github.com/franco-c/Useful-scripts/franco/cd.sh
 
-. fr.sh (it will move frameworks/base)
+. fr.sh (goto frameworks/base)
 curl https://raw.github.com/franco-c/Useful-scripts/franco/fr.sh
 
-. go.sh (it will lunch make.sh with no syncing)
+. go.sh (lunch make.sh with no syncing)
 curl https://raw.github.com/franco-c/Useful-scripts/franco/go.sh
 
 . linaro.sh (build with mka in linaro toolchain)
 curl https://raw.github.com/franco-c/Useful-scripts/franco/linaro.sh
 
-. make.sh $1 $2 $3 $4 (it will $1=Device_codename, $2=sync, $3=14 {threads}, $4=clean)
+. make.sh $1 $2 $3 $4 ($1=Device_codename, $2=sync, $3=14 {threads}, $4=clean)
 curl https://raw.github.com/franco-c/Useful-scripts/franco/make.sh
 
 . mmm.sh $1 (to use this, you need to
              . build/envsetup.sh
              lunch $1 
-             first, and then it'll compile packages/apps/$1)
+             first, and it'll compile packages/apps/$1)
 curl https://raw.github.com/franco-c/Useful-scripts/franco/mmm.sh
 
 .out.sh $1 (it will move out/target/product/$1)
